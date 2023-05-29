@@ -17,11 +17,15 @@ describe('Testes de unidade do Model de Products', function () {
     expect(result).to.deep.equal(productList);
   });
 
-  // it('Verifica que não é possível listar um produto que não existe', async function {
+  it('Lista o produto a partir do seu id', async function () {
+    sinon.stub(connection, 'execute').resolves([[productList[0]]]);
 
-  // });
+    const result = await productModel.findById(1);
 
-  // it('Lista o produto a partir do seu id', async function {
+    expect(result).to.deep.equal(productList[0]);
+  });
 
-  // });
+  afterEach(function () {
+    sinon.restore();
+  });
 });
