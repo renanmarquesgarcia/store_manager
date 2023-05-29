@@ -18,7 +18,7 @@ describe('Testes de unidade do Model de Sale', function () {
   });
 
   it('Lista uma venda partir do seu id', async function () {
-    sinon.stub(connection, 'execute').resolves([[sale]]);
+    sinon.stub(connection, 'execute').resolves([sale]);
 
     const result = await saleModel.findById(1);
 

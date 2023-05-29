@@ -22,7 +22,7 @@ describe('Teste de unidade do Service de Sales', function () {
 
   describe('Busca por uma venda', function () {
     it('Retorna um erro caso o "id" da venda não exista', async function () {
-      sinon.stub(saleModel, 'findById').resolves(undefined);
+      sinon.stub(saleModel, 'findById').resolves([]);
 
       const result = await saleService.findById(999999);
 
