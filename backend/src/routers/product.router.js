@@ -8,4 +8,9 @@ productRouter.get(
   productController.findAll,
 );
 
+productRouter.get(
+  '/:id',
+  productController.findById,
+);
+
 module.exports = productRouter;
