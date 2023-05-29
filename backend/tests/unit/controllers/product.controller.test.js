@@ -10,7 +10,7 @@ const { productList } = require('./mocks/product.controller.mock');
 const { expect } = chai;
 chai.use(sinonChai);
 
-describe('Teste de unidade do Controller de Products', function () {
+describe('Teste de unidade do Controller de Product', function () {
   describe('Lista os produtos cadastrados', function () {
     it('Responde com o status 200 e a lista de produtos', async function () {
       const res = {};

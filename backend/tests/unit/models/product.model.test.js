@@ -8,7 +8,7 @@ const { productList } = require('./mocks/product.model.mock');
 
 const { expect } = chai;
 
-describe('Testes de unidade do Model de Products', function () {
+describe('Testes de unidade do Model de Product', function () {
   it('Lista os produtos cadastrados', async function () {
     sinon.stub(connection, 'execute').resolves([productList]);
 
