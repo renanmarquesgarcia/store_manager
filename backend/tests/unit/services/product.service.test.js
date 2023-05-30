@@ -47,17 +47,19 @@ describe('Teste de unidade do Service de Product', function () {
 
   describe('Cadastra um novo produto', function () {
     it('Retorna um erro ao passar um nome inválido', async function () {
-      const result = await productModel.insert(invalidName);
+      const result = await productService.insert(invalidName);
 
       expect(result.type).to.equal('INVALID_VALUE');
-      expect(result.message).to.equal('"name" length must be at least 5 characters long');
+      expect(result.message).to.equal(
+        '"name" length must be at least 5 characters long',
+      );
     });
 
     it('Retorna o novo produto ao passar um nome válido', async function () {
       sinon.stub(productModel, 'insert').resolves(4);
       sinon.stub(productModel, 'findById').resolves(newRegisteredProduct);
       
-      const result = await productModel.insert(validName);
+      const result = await productService.insert(validName);
 
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(newRegisteredProduct);

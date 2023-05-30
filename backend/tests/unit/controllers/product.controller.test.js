@@ -96,9 +96,9 @@ describe('Teste de unidade do Controller de Product', function () {
       await productController.insert(req, res);
 
       expect(res.status).to.have.been.calledWith(422);
-      expect(res.json).to.have.been.calledWith(
-        '"name" length must be at least 5 characters long',
-      );
+      expect(res.json).to.have.been.calledWith({
+        message: '"name" length must be at least 5 characters long',
+      });
     });
 
     it('Ao enviar dados válidos deve cadastrar o produto com sucesso!', async function () {
@@ -115,7 +115,7 @@ describe('Teste de unidade do Controller de Product', function () {
 
       await productController.insert(req, res);
 
-      expect(res.status).to.have.been.calledWith(200);
+      expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(newRegisteredProduct);
     });
   });

@@ -40,4 +40,23 @@ describe('Verificando middleware validateProductNameField', function () {
       expect(next).to.have.not.been.calledWith();
     });
   });
+
+  describe('Tentando adicionar um produto com a chave "name" na requisição', function () {
+    it('Deve chamar o próximo middleware caso houver a chave "name"', async function () {
+      const res = {};
+      const req = {
+        body: {
+          name: 'ProdutoX',
+        },
+      };
+      const next = sinon.stub().returns();
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await validateProductNameField(req, res, next);
+
+      expect(next).to.have.been.calledWith();
+    });
+  });   
 });

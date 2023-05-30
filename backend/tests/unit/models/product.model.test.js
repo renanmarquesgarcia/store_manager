@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 
-const { productList, validName } = require('./mocks/product.model.mock');
+const { productList, newProduct } = require('./mocks/product.model.mock');
 
 const { expect } = chai;
 
@@ -31,9 +31,9 @@ describe('Testes de unidade do Model de Product', function () {
     it('retorna o "id" do produto cadastrado', async function () {
     sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
 
-    const result = await productModel.insert(validName);
-    
-    expect(result).to.equal(42);
+    const result = await productModel.insert(newProduct);
+
+    expect(result).to.equal(4);
     }); 
   });
 

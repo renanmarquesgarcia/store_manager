@@ -9,9 +9,9 @@ const productList = [
   },
 ];
 
-const validName = 'ProdutoX';
+const newProduct = { name: 'ProdutoX' };
 
 module.exports = {
   productList,
-  validName,
+  newProduct,
 };

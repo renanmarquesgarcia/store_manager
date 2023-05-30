@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { productController } = require('../controllers');
+const validateProductNameField = require('../middlewares/validateProductNameField');
 
 const productRouter = Router();
 
@@ -11,6 +12,12 @@ productRouter.get(
 productRouter.get(
   '/:id',
   productController.findById,
+);
+
+productRouter.post(
+  '/',
+  validateProductNameField,
+  productController.insert,
 );
 
 module.exports = productRouter;
