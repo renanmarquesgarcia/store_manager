@@ -20,4 +20,10 @@ productRouter.post(
   productController.insert,
 );
 
+productRouter.put(
+  '/:id',
+  validateProductNameField,
+  productController.update,
+);
+
 module.exports = productRouter;

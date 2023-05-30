@@ -23,8 +23,23 @@ const insert = async (productName) => {
   return { type: null, message: newProduct };
 };
 
+const update = async (productId, productName) => {
+  const error = schema.validateProductName(productName);
+  if (error.type) return error;
+
+  const productToUpdate = await productModel.findById(productId);
+  if (!productToUpdate) {
+    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  }
+
+  await productModel.update(productId, productName);
+  const updatedProduct = await productModel.findById(productId);
+  return { type: null, message: updatedProduct };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };
