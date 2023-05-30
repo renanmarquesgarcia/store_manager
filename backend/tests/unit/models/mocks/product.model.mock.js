@@ -9,6 +9,9 @@ const productList = [
   },
 ];
 
+const validName = 'ProdutoX';
+
 module.exports = {
   productList,
+  validName,
 };

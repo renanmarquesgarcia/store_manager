@@ -4,7 +4,12 @@ const sinon = require('sinon');
 const { productModel } = require('../../../src/models');
 const { productService } = require('../../../src/services');
 
-const { productList } = require('./mocks/product.service.mock');
+const { 
+  productList,
+  invalidName,
+  validName,
+  newRegisteredProduct,
+} = require('./mocks/product.service.mock');
 
 const { expect } = chai;
 
@@ -37,6 +42,25 @@ describe('Teste de unidade do Service de Product', function () {
 
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(productList[0]);
+    });
+  });
+
+  describe('Cadastra um novo produto', function () {
+    it('Retorna um erro ao passar um nome inválido', async function () {
+      const result = await productModel.insert(invalidName);
+
+      expect(result.type).to.equal('INVALID_VALUE');
+      expect(result.message).to.equal('"name" length must be at least 5 characters long');
+    });
+
+    it('Retorna o novo produto ao passar um nome válido', async function () {
+      sinon.stub(productModel, 'insert').resolves(4);
+      sinon.stub(productModel, 'findById').resolves(newRegisteredProduct);
+      
+      const result = await productModel.insert(validName);
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(newRegisteredProduct);
     });
   });
 
