@@ -1,4 +1,4 @@
-const { saleModel } = require('../models');
+const { saleModel, productModel } = require('../models');
 
 const findAll = async () => {
   const sales = await saleModel.findAll();
@@ -13,6 +13,20 @@ const findById = async (saleId) => {
 };
 
 const insert = async (data) => {
+  const quantityValidation = data.some(({ quantity }) => quantity < 1);
+  if (quantityValidation) {
+    return { 
+      type: 'INVALID_VALUE',
+      message: '"quantity" must be greater than or equal to 1',
+    };
+  }
+
+  const promisseProducts = data.map(({ productId }) => productModel.findById(productId));  
+  const products = await Promise.all(promisseProducts);  
+  if (products.some((product) => product === undefined)) {
+    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+  }
+
   const saleId = await saleModel.insertIntoSalesTable();
 
   const salePromisse = data.map((sale) => saleModel.insert(saleId, sale));

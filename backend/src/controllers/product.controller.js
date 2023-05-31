@@ -33,7 +33,7 @@ const update = async (req, res) => {
   
   const { type, message } = await productService.update(id, name);
   
-  if (type) return res.status(mapError(type)).json(message);
+  if (type) return res.status(mapError(type)).json({ message });
 
   res.status(200).json(message);
 };
@@ -42,7 +42,7 @@ const deleteProduct = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await productService.deleteProduct(id);
   
-  if (type) return res.status(mapError(type)).json(message);
+  if (type) return res.status(mapError(type)).json({ message });
 
   res.sendStatus(204);
 };

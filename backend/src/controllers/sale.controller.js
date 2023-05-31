@@ -22,7 +22,7 @@ const insert = async (req, res) => {
   const data = req.body;
   const { type, message } = await saleService.insert(data);
 
-  if (type) return res.status(mapError(type)).json(message);
+  if (type) return res.status(mapError(type)).json({ message });
 
   res.status(201).json(message); 
 };
