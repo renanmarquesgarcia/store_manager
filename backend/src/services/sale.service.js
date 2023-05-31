@@ -13,11 +13,13 @@ const findById = async (saleId) => {
 };
 
 const insert = async (data) => {
-  const salePromisse = data.map((sale) => saleModel.insert(sale));
-  const result = await Promise.all(salePromisse);
-  console.log(result);
-  // const result = await saleModel.insert(data)
-  return 'result';
+  const saleId = await saleModel.insertIntoSalesTable();
+
+  const salePromisse = data.map((sale) => saleModel.insert(saleId, sale));
+  const itemsSold = await Promise.all(salePromisse);
+  const sale = { id: saleId, itemsSold };
+  
+  return { type: null, message: sale };
 };
 
 module.exports = {
