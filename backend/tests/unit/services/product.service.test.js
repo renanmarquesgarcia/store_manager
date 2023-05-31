@@ -9,6 +9,8 @@ const {
   invalidName,
   validName,
   newRegisteredProduct,
+  // invalidValue,
+  // validId,
 } = require('./mocks/product.service.mock');
 
 const { expect } = chai;
@@ -65,6 +67,31 @@ describe('Teste de unidade do Service de Product', function () {
       expect(result.message).to.deep.equal(newRegisteredProduct);
     });
   });
+
+  // describe('Tenta atualizar um produto', function () {
+  //   it('Retorna um erro ao passar um nome inválido', async function () {
+  //     const result = await productService.update(validId, invalidValue);
+
+  //     expect(result.type).to.equal('INVALID_VALUE');
+  //     expect(result.message).to.equal(
+  //       '"name" length must be at least 5 characters long',
+  //     );
+  //   });
+
+  //   it('Retorna um erro caso o "id" do produto não exista', async function () {
+  //     const result = await productService.update(invalidValue, validName);
+
+  //     expect(result.type).to.equal('PRODUCT_NOT_FOUND');
+  //     expect(result.message).to.equal('Product not found');
+  //   });
+
+  //   it('Retorna o produto atualizado', async function () {
+  //     const result = await productService.update(validId, validName);
+
+  //     expect(result.type).to.equal(null);
+  //     expect(result.message).to.deep.equal();
+  //   });
+  // });
 
   afterEach(function () {
     sinon.restore();

@@ -13,10 +13,14 @@ const newRegisteredProduct = { id: 4, name: 'ProdutoX' };
 
 const validName = 'ProdutoX';
 const invalidName = 'abcd';
+const invalidValue = 'a';
+const validId = 1;
 
 module.exports = {
   productList,
   newRegisteredProduct,
   validName,
   invalidName,
+  invalidValue,
+  validId,
 };

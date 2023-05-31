@@ -12,7 +12,16 @@ const findById = async (saleId) => {
   return { type: null, message: sales };
 };
 
+const insert = async (data) => {
+  const salePromisse = data.map((sale) => saleModel.insert(sale));
+  const result = await Promise.all(salePromisse);
+  console.log(result);
+  // const result = await saleModel.insert(data)
+  return 'result';
+};
+
 module.exports = {
   findAll,
   findById,
+  insert,
 };

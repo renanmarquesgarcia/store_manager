@@ -13,4 +13,9 @@ saleRouter.get(
   saleController.findById,
 );
 
+saleRouter.post(
+  '/',
+  saleController.insert,
+);
+
 module.exports = saleRouter;
