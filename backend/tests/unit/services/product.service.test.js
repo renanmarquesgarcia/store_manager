@@ -103,6 +103,27 @@ describe('Teste de unidade do Service de Product', function () {
     });
   });
 
+  describe('Deleta um produto', function () {
+    it('Retorna um erro caso o "id" do produto não exista', async function () {
+      sinon.stub(productModel, 'findById').resolves(undefined);
+      
+      const result = await productService.deleteProduct(999999);
+
+      expect(result.type).to.equal('PRODUCT_NOT_FOUND');
+      expect(result.message).to.equal('Product not found');
+    });
+
+    it('Deleta o produto com sucesso', async function () {
+      sinon.stub(productModel, 'findById').resolves(productList[0]);
+      sinon.stub(productModel, 'deleteProduct').resolves(1);
+      
+      const result = await productService.deleteProduct(1);
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.equal('');
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

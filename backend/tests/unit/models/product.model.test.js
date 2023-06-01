@@ -51,6 +51,16 @@ describe('Testes de unidade do Model de Product', function () {
     });
   });
 
+  describe('Deleta um produto', function () {
+    it('Retorna o número de linhas afetadas', async function () {
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      const result = await productModel.deleteProduct(1);
+
+      expect(result).to.equal(1);
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
