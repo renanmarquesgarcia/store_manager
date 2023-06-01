@@ -13,8 +13,14 @@ const newProduct = { name: 'ProdutoX' };
 
 const newRegisteredProduct = { id: 4, ...newProduct };
 
+const updatedProduct = {
+  id: 1,
+  name: ',Martelo do Batman',
+};
+
 module.exports = {
   productList,
   newProduct,
   newRegisteredProduct,
+  updatedProduct,
 };

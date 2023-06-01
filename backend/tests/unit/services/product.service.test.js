@@ -9,8 +9,8 @@ const {
   invalidName,
   validName,
   newRegisteredProduct,
-  // invalidValue,
-  // validId,
+  invalidValue,
+  validId,
 } = require('./mocks/product.service.mock');
 
 const { expect } = chai;
@@ -68,30 +68,34 @@ describe('Teste de unidade do Service de Product', function () {
     });
   });
 
-  // describe('Tenta atualizar um produto', function () {
-  //   it('Retorna um erro ao passar um nome inválido', async function () {
-  //     const result = await productService.update(validId, invalidValue);
+  describe('Tenta atualizar um produto', function () {
+    it('Retorna um erro ao passar um nome inválido', async function () {
+      const result = await productService.update(validId, invalidValue);
 
-  //     expect(result.type).to.equal('INVALID_VALUE');
-  //     expect(result.message).to.equal(
-  //       '"name" length must be at least 5 characters long',
-  //     );
-  //   });
+      expect(result.type).to.equal('INVALID_VALUE');
+      expect(result.message).to.equal(
+        '"name" length must be at least 5 characters long',
+      );
+    });
 
-  //   it('Retorna um erro caso o "id" do produto não exista', async function () {
-  //     const result = await productService.update(invalidValue, validName);
+    it('Retorna um erro caso o "id" do produto não exista', async function () {
+      sinon.stub(productModel, 'findById').resolves(undefined);
+      
+      const result = await productService.update(invalidValue, validName);
 
-  //     expect(result.type).to.equal('PRODUCT_NOT_FOUND');
-  //     expect(result.message).to.equal('Product not found');
-  //   });
+      expect(result.type).to.equal('PRODUCT_NOT_FOUND');
+      expect(result.message).to.equal('Product not found');
+    });
 
-  //   it('Retorna o produto atualizado', async function () {
-  //     const result = await productService.update(validId, validName);
+    // it('Retorna o produto atualizado', async function () {
+    //   sinon.stub(productModel, 'findById').resolves(productList[0]);
 
-  //     expect(result.type).to.equal(null);
-  //     expect(result.message).to.deep.equal();
-  //   });
-  // });
+    //   const result = await productService.update(validId, validName);
+
+    //   expect(result.type).to.equal(null);
+    //   expect(result.message).to.deep.equal();
+    // });
+  });
 
   afterEach(function () {
     sinon.restore();

@@ -9,11 +9,11 @@ const {
   sale,
   saleRegisterWithQuantityLessThan1,
   saleRegisterWithProductIdNotAvailable,
-  // correctSaleRegistration,
-  // saleRegistered,
+  correctSaleRegistration,
+  saleRegistered,
 } = require('./mocks/sale.service.mock');
 
-// const { productList } = require('./mocks/product.service.mock');
+const { productList } = require('./mocks/product.service.mock');
 
 const { expect } = chai;
 
@@ -66,16 +66,22 @@ describe('Teste de unidade do Service de Sales', function () {
       expect(result.message).to.equal('Product not found');
     });
 
-    // it('Retorna a venda cadastrada com sucesso', async function () {
-    //   sinon.stub(productModel, 'findById').resolves(productList);
-    //   sinon.stub(saleModel, 'insertIntoSalesTable').resolves(3);
-    //   sinon.stub(saleModel, 'insert').resolves(correctSaleRegistration);
+    it('Retorna a venda cadastrada com sucesso', async function () {
+      sinon.stub(productModel, 'findById')
+        .onFirstCall().resolves(productList[0])
+        .onSecondCall()
+        .resolves(productList[1]);
+      sinon.stub(saleModel, 'insertIntoSalesTable').resolves(3);
+      sinon.stub(saleModel, 'insert')
+        .onFirstCall().resolves(correctSaleRegistration[0])
+        .onSecondCall()
+        .resolves(correctSaleRegistration[1]);
 
-    //   const result = await saleService.insert(correctSaleRegistration);      
+      const result = await saleService.insert(correctSaleRegistration);      
 
-    //   expect(result.type).to.equal(null);
-    //   expect(result.message).to.equal(saleRegistered);
-    // });
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(saleRegistered);
+    });
   });
 
   afterEach(function () {

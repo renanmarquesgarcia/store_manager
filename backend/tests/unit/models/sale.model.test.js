@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { saleModel } = require('../../../src/models');
 
-const { saleList, sale } = require('./mocks/sale.model.mock'); // productToRegister
+const { saleList, sale, productToRegister } = require('./mocks/sale.model.mock'); // productToRegister
 
 const { expect } = chai;
 
@@ -25,11 +25,21 @@ describe('Testes de unidade do Model de Sale', function () {
     expect(result).to.deep.equal(sale);
   });
 
-  // it('Cadastra uma venda', async function () {
-  //   const result = await saleModel.insert(3, productToRegister);
+  it('Cadastra um novo id de venda', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 3 }]);
 
-  //   expect(result).to.deep.equal(productToRegister);
-  // });
+    const result = await saleModel.insertIntoSalesTable();
+
+    expect(result).to.equal(3);
+  });
+
+  it('Cadastra uma venda', async function () {
+    sinon.stub(connection, 'execute').resolves();
+
+    const result = await saleModel.insert(3, productToRegister);
+
+    expect(result).to.deep.equal(productToRegister);
+  });
 
   afterEach(function () {
     sinon.restore();

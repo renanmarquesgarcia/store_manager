@@ -9,6 +9,7 @@ const {
   productList,
   newProduct,
   newRegisteredProduct,
+  updatedProduct,
 } = require('./mocks/product.controller.mock');
 
 const { expect } = chai;
@@ -117,6 +118,70 @@ describe('Teste de unidade do Controller de Product', function () {
 
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(newRegisteredProduct);
+    });
+  });
+
+  describe('Atualiza um produto', function () {
+    it('Ao enviar um nome com menos de 5 caracteres deve retornar um erro!', async function () {
+      const res = {};
+      const req = {
+        params: { id: 1 },
+        body: { name: 'abcd' },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon 
+        .stub(productService, 'update')
+        .resolves({ 
+          type: 'INVALID_VALUE',
+          message: '"name" length must be at least 5 characters long', 
+        });
+
+      await productController.update(req, res);
+
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith({
+        message: '"name" length must be at least 5 characters long',
+      });
+    });
+
+    it('Responde com o status 404 e uma mensagem de erro se o "id" não existir', async function () {
+      const res = {};
+      const req = {
+        params: { id: 999999 },
+        body: { name: 'Martelo do Batman' },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon 
+        .stub(productService, 'update')
+        .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+
+      await productController.update(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+    });
+
+    it('Altera o produto com sucesso', async function () {
+      const res = {};
+      const req = {
+        params: { id: 1 },
+        body: { name: 'Martelo do Batman' },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon 
+        .stub(productService, 'update')
+        .resolves({ type: null, message: updatedProduct });
+
+      await productController.update(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(updatedProduct);
     });
   });
 
