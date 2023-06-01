@@ -26,7 +26,13 @@ const sale = [
   },
 ];
 
+const productToRegister = {
+  productId: 2,
+  quantity: 5,
+};
+
 module.exports = {
   saleList,
   sale,
+  productToRegister,
 };

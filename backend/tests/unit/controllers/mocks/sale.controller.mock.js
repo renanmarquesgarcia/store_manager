@@ -26,7 +26,58 @@ const sale = [
   },
 ];
 
+const saleRegisterWithQuantityLessThan1 = [
+  {
+    productId: 1,
+    quantity: 0,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const saleRegisterWithProductIdNotAvailable = [
+  {
+    productId: 999999,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const correctSaleRegistration = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const saleRegistered = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ],
+};
+
 module.exports = {
   saleList,
   sale,
+  saleRegisterWithQuantityLessThan1,
+  saleRegisterWithProductIdNotAvailable,
+  correctSaleRegistration,
+  saleRegistered,
 };

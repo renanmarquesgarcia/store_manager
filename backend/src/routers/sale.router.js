@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { saleController } = require('../controllers');
 const validateProductIdField = require('../middlewares/validateProductIdField');
-const validateQuantityField = require('../middlewares/validateQuantityField');
+const validateProductQuantityField = require('../middlewares/validateProductQuantityField');
 
 const saleRouter = Router();
 
@@ -18,7 +18,7 @@ saleRouter.get(
 saleRouter.post(
   '/',
   validateProductIdField,
-  validateQuantityField,
+  validateProductQuantityField,
   saleController.insert,
 );
 
