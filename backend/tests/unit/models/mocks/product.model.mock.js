@@ -11,7 +11,13 @@ const productList = [
 
 const newProduct = { name: 'ProdutoX' };
 
+const productToUpdate = {
+  id: 1,
+  name: ',Martelo do Batman',
+};
+
 module.exports = {
   productList,
   newProduct,
+  productToUpdate,
 };

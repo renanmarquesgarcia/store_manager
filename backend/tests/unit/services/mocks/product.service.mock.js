@@ -16,6 +16,11 @@ const invalidName = 'abcd';
 const invalidValue = 'a';
 const validId = 1;
 
+const updatedProduct = {
+  id: 1,
+  name: 'Martelo do Batman',
+};
+
 module.exports = {
   productList,
   newRegisteredProduct,
@@ -23,4 +28,5 @@ module.exports = {
   invalidName,
   invalidValue,
   validId,
+  updatedProduct,
 };

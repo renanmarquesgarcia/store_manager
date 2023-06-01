@@ -11,6 +11,7 @@ const {
   newRegisteredProduct,
   invalidValue,
   validId,
+  updatedProduct,
 } = require('./mocks/product.service.mock');
 
 const { expect } = chai;
@@ -87,14 +88,19 @@ describe('Teste de unidade do Service de Product', function () {
       expect(result.message).to.equal('Product not found');
     });
 
-    // it('Retorna o produto atualizado', async function () {
-    //   sinon.stub(productModel, 'findById').resolves(productList[0]);
+    it('Retorna o produto atualizado', async function () {
+      sinon.stub(productModel, 'findById')
+        .onFirstCall().resolves(productList[0])
+        .onSecondCall()
+        .resolves(updatedProduct);
 
-    //   const result = await productService.update(validId, validName);
+      sinon.stub(productModel, 'update').resolves();
 
-    //   expect(result.type).to.equal(null);
-    //   expect(result.message).to.deep.equal();
-    // });
+      const result = await productService.update(validId, validName);
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(updatedProduct);
+    });
   });
 
   afterEach(function () {
