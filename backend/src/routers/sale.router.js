@@ -22,4 +22,9 @@ saleRouter.post(
   saleController.insert,
 );
 
+saleRouter.delete(
+  '/:id',
+  saleController.deleteSale,
+);
+
 module.exports = saleRouter;

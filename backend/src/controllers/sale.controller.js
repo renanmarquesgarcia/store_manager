@@ -27,8 +27,18 @@ const insert = async (req, res) => {
   res.status(201).json(message); 
 };
 
+const deleteSale = async (req, res) => {
+  const { id } = req.params;
+  const { type, message } = await saleService.deleteSale(id);
+
+  if (type) return res.status(mapError(type)).json({ message });
+
+  res.sendStatus(204);
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
+  deleteSale,
 };
