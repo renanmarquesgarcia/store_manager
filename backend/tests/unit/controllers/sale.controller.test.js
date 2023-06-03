@@ -144,6 +144,38 @@ describe('Teste de unidade do Controller de Sale', function () {
     });
   });
 
+  describe('Deleta uma venda', function () {
+    it('Retorna o status 404 e um erro ao passar um "id" inexistente', async function () {
+      const res = {};
+      const req = { params: { id: 999999 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(saleService, 'deleteSale')
+        .resolves({ type: 'SALE_NOT_FOUND', message: 'Sale nor found' });
+
+      await saleController.deleteSale(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Sale nor found' });
+    });
+
+    it('Retorna o status 204 e a venda é deletada com sucesso', async function () {
+      const res = {};
+      const req = { params: { id: 2 } };
+
+      res.sendStatus = sinon.stub().returns(res);
+      sinon
+        .stub(saleService, 'deleteSale')
+        .resolves({ type: null, message: '' });
+
+      await saleController.deleteSale(req, res);
+
+      expect(res.sendStatus).to.have.been.calledWith(204);
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });

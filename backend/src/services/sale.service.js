@@ -43,6 +43,7 @@ const deleteSale = async (saleId) => {
   }
 
   const affectedRows = await saleModel.deleteSale(saleId);
+  console.log(affectedRows);
   if (affectedRows > 0) return { type: null, message: '' };
 };
 

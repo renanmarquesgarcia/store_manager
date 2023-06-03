@@ -213,7 +213,6 @@ describe('Teste de unidade do Controller de Product', function () {
       };
 
       res.sendStatus = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
       sinon 
         .stub(productService, 'deleteProduct')
         .resolves({ type: null, message: '' });
