@@ -124,6 +124,36 @@ describe('Teste de unidade do Service de Product', function () {
     });
   });
 
+  describe('Busca um produto através do nome', function () {
+    beforeEach(function () {
+      sinon.stub(productModel, 'findAll').resolves(productList);
+    });
+
+    it(
+      'Retorna um array vazio caso o "nome" pesquisado não corresponda a nenhum produto',
+      async function () {
+      const result = await productService.search('Inexistente');
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal([]);
+      },
+    );
+
+    it('Busca vazia retorna todos os produtos cadastrados', async function () {
+      const result = await productService.search('');
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(productList);
+    });
+
+    it('Busca pelo "nome" retorna os produtos cadastrados com aquele nome', async function () {
+      const result = await productService.search('Martelo');
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal([productList[0]]);
+    });
+  });
+
   afterEach(function () {
     sinon.restore();
   });
