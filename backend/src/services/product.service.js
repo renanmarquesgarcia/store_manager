@@ -47,10 +47,20 @@ const deleteProduct = async (productId) => {
   if (affectedRows > 0) return { type: null, message: '' };
 };
 
+const search = async (productName) => {
+  const products = await productModel.findAll();
+
+  const searchedProduct = products
+    .filter(({ name }) => name.toLowerCase().includes(productName.toLowerCase()));
+  
+  return { type: null, message: searchedProduct };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   update,
   deleteProduct,
+  search,
 };

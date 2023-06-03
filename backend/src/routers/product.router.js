@@ -5,6 +5,11 @@ const validateProductNameField = require('../middlewares/validateProductNameFiel
 const productRouter = Router();
 
 productRouter.get(
+  '/search',
+  productController.search,
+);
+
+productRouter.get(
   '/',
   productController.findAll,
 );
