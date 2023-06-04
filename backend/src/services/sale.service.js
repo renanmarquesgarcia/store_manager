@@ -47,9 +47,31 @@ const deleteSale = async (saleId) => {
   if (affectedRows > 0) return { type: null, message: '' };
 };
 
+const updateProductQuantity = async (saleId, productId, quantity) => {
+  if (quantity < 1) {
+    return { type: 'INVALID_VALUE', message: '"quantity" must be greater than or equal to 1' };
+  }
+
+  const saleToUpdate = await saleModel.findById(Number(saleId));
+  if (saleToUpdate.length === 0) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+  const productToUpdate = saleToUpdate
+    .find((element) => element.productId === Number(productId));
+
+  if (!productToUpdate) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found in sale' };
+
+  await saleModel.updateProductQuantity(saleId, productId, quantity);
+  const sale = await saleModel.findById(saleId);
+  const productWithUpdatedQuantity = sale
+    .find((element) => element.productId === Number(productId));
+  
+  return { type: null, message: { ...productWithUpdatedQuantity, saleId: Number(saleId) } };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   deleteSale,
+  updateProductQuantity,
 };

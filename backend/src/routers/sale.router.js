@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { saleController } = require('../controllers');
 const validateProductIdField = require('../middlewares/validateProductIdField');
 const validateProductQuantityField = require('../middlewares/validateProductQuantityField');
+const validateProductQuantityUpdate = require('../middlewares/validateProductQuantityUpdate');
 
 const saleRouter = Router();
 
@@ -25,6 +26,12 @@ saleRouter.post(
 saleRouter.delete(
   '/:id',
   saleController.deleteSale,
+);
+
+saleRouter.put(
+  '/:saleId/products/:productId/quantity',
+  validateProductQuantityUpdate,
+  saleController.updateProductQuantity,
 );
 
 module.exports = saleRouter;
