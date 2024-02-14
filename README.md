@@ -2,7 +2,7 @@
 
   Este projeto consiste no desenvolvimento de uma API RESTful utilizando uma arquitetura em camadas(MVC). A API representa um sistema de gerenciamento de vendas, sendo possível criar, visualizar, deletar e atualizart produtos e vendas.
 
-  Para criação do projeto foram utilizadas como tecnologias principais: JavaScript, Express, MySQL e Node.js. Também foram desenvolvidos teste para garantir a funcionalidade das implrmentações.
+  Para criação do projeto foram utilizadas como tecnologias principais: JavaScript, Express, MySQL e Node.js. Também foram desenvolvidos teste para garantir a funcionalidade das implementações.
 
 ## Orientações
 
